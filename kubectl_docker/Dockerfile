@@ -7,4 +7,5 @@ RUN apt update && \
 RUN apt install nano
 COPY . /resources
 
-CMD kubectl get po
+RUN read -p "Press enter to continue"
+
