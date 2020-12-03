@@ -10,7 +10,7 @@ app = Flask(__name__)
 # define the function hello             
 def hello():
    # return "hello world" when
-   return "Hello World!"
+   return "good morning"
 
 # on running python app.py
 if __name__ == "__main__":
