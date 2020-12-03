@@ -1,11 +1,13 @@
-FROM debian:buster
-RUN apt update && \
-    apt install -y curl && \
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl && \
-    chmod +x ./kubectl && \
-    mv ./kubectl /usr/local/bin/kubectl
-RUN apt install nano
-COPY . /resources
+FROM python:3.7-buster
 
-RUN read -p "Press enter to continue"
+WORKDIR /src
+ADD . /src
+
+RUN apt-get update 
+
+RUN pip install -r requirements.txt
+
+EXPOSE 5000
+
+CMD ["python", "/src/app.py"]
 
