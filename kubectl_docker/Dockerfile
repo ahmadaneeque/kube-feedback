@@ -17,6 +17,6 @@ RUN chmod +x ./build.bash
 # RUN python /src/training.py
 # CMD ["python", "/src/app.py"]
 
-# CMD kubectl -n kube-feedback set image deployment/anomaly-model model=aneequekhalid/kube-feedback:v3 --record=true
-CMD kubectl -n kube-feedback get pods
+CMD kubectl -n kube-feedback set image deployment/anomaly-model model=aneequekhalid/dummy_test:v2 --record=true
+# CMD kubectl -n kube-feedback get pods
 
