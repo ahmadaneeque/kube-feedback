@@ -1,0 +1,64 @@
+$SPARK_HOME/bin/spark-submit --jars /home/ahmad/Apache/jars/crate-jdbc-2.1.7.jar,/home/ahmad/Apache/jars/spark-streaming-mqtt_2.11-2.3.0-SNAPSHOT.jar,/home/ahmad/Apache/jars/org.eclipse.paho.client.mqttv3-1.0.2.jar test_df.py
+
+$SPARK_HOME/bin/spark-submit --jars /home/aneeq/Apache/jars/crate-jdbc-2.1.7.jar,/home/aneeq/Apache/jars/spark-streaming-mqtt_2.11-2.3.0-SNAPSHOT.jar,/home/aneeq/Apache/jars/org.eclipse.paho.client.mqttv3-1.0.2.jar POC_e2e_score.py --model-path POC_MODLES/Anomly_Ch.Dev.Anomly4
+
+
+steps:
+https://docs.google.com/document/d/15rZe49noio3fB75tjoxHqa8678uD5hovg1PN_9ZJEOM/edit
+pip install orion==0.3
+
+https://intechww.jfrog.io/intechww/webapp/#/home
+
+export CRATE_HOSTNAME=10.1.10.19
+export CRATE_PORT=5433
+export MQTT_HOSTNAME=10.1.10.19
+
+https://dl.bintray.com/crate/crate/io/crate/crate-jdbc/2.1.7/crate-jdbc-2.1.7.jar
+
+http://central.maven.org/maven2/org/eclipse/paho/org.eclipse.paho.client.mqttv3/1.0.2/org.eclipse.paho.client.mqttv3-1.0.2.jar
+
+https://storage.googleapis.com/intech-public-packages/spark-streaming-mqtt_2.11-2.3.0-SNAPSHOT.jar
+
+$SPARK_HOME/conf/spark-defaults.conf
+
+spark.executor.extraClassPath=<PATH>/crate-jdbc-2.1.7.jar:<PATH>/spark-streaming-mqtt_2.11-2.3.0-SNAPSHOT.jar:<PATH>/org.eclipse.paho.client.mqttv3-1.0.2.jar
+
+read_historical_sensor_values(self, sql_context, start_time_epoch_ms=None, end_time_epoch_ms=None, sensor_ids=[]):
+
+CRATE_SENSOR_VALUE_TABLE_NAME
+
+https://github.com/apache/bahir
+
+git clone https://github.com/apache/bahir
+
+export PYTHONPATH=<PATH>/bahir/streaming-mqtt/python/:$PYTHONPATH
+
+Writing a Spark DStream with event values:
+
+orion.write_event_value_stream(dstream, "tag_id")
+
+It’s very basic. It might be useful for you to ask specific questions.
+
+
+
+
+$SPARK_HOME/bin/spark-submit --jars /home/aneeq/Apache/jars/crate-jdbc-2.1.7.jar,/home/aneeq/Apache/jars/spark-streaming-mqtt_2.11-2.3.0-SNAPSHOT.jar,/home/aneeq/Apache/jars/org.eclipse.paho.client.mqttv3-1.0.2.jar 
+
+
+export CRATE_HOSTNAME=10.1.10.19
+export CRATE_PORT=5433
+
+export MQTT_HOSTNAME='localhost'
+export MQTT_PORT = 
+
+SENSOR_PREPEND
+
+sudo openconnect 202.163.127.139 
+
+Credentials for Cisco Anyconnect:
+Server        : 202.163.127.139
+Username : package
+Password  : Anyvpn37@
+
+
+

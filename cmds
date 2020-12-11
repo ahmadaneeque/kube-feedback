@@ -1,0 +1,63 @@
+docker run -it -p 8006:8006 -v /home/ahmad/Codes/siddhi-apps/CountOverTime.siddhi:/apps/CountOverTime.siddhi siddhiio/siddhi-runner-alpine -Dapps=/apps/CountOverTime.siddhi
+
+docker run -it -p 8006:8006 -v /home/ahmad/Codes/siddhi-apps:/apps -v /home/ahmad/Codes/pmml_model:/pmml_model -e PMML_MODEL_PATH=/pmml_model/keras_iris.pmml siddhi-runner-alpine:5.1.0-beta -Dapps=/apps/KerasModelExecution2.siddhi
+
+siddhi-runner-alpine:5.1.0-beta
+
+curl -v -X POST -d \
+    '{"event": 
+{"userId": "user105", "movieId": "avatar", "reviewComment": "Best movie experience of the last 30 years.."}
+}' \
+    "http://localhost:8006/feedbackInputStream" -H "Content-Type:application/json"
+
+
+
+
+
+
+
+
+
+
+
+https://github.com/siddhi-io/docker-siddhi/releases
+
+
+https://github.com/siddhi-io/docker-siddhi/tree/master/docker-files/siddhi-runner/alpine
+
+
+docker run -it -p 8006:8006 -v /home/ahmad/Codes/siddhi-apps:/apps siddhi-runner-alpine:5.1.0-beta -Dapps=/apps/RestRequest.siddhi
+
+curl -X POST http://localhost:8006/feedbackInputStream --header "Content-Type:application/json" -d '{"event":{"sepal_length":2,"sepal_width":2,"petal_length":2,"petal_width":2}}'
+curl -X POST http://0.0.0.0:5000/test 
+
+
+
+define stream StockStream (symbol string, price float, volume long);
+
+
+@sink(type='http', receiver.url = 'http://0.0.0.0:5000/post',
+ basic.auth.enabled = 'false', @map(type = 'json'))
+
+
+
+
+
+
+
+
+
+sudo docker run -it --entrypoint '/bin/bash' -p 5000:5000 -v /home/ahmad/Codes/test_apps/:/app/test_apps aneequekhalid/flask_app
+
+
+
+sudo docker run -it -p 8006:8006 -v /home/ahmad/Codes/siddhi-apps:/apps --link relaxed_germain siddhi-runner-alpine:5.1.0-beta -Dapps=/apps/RestRequest.siddhi
+curl -X POST http://localhost:8006/feedbackInputStream --header "Content-Type:application/json" -d '{"event":{"sepal_length":2,"sepal_width":2,"petal_length":2,"petal_width":2}}'
+curl -X POST 172.17.0.1:5000/post -d '{"foo": "bar"}' -H 'Content-Type: application/json
+
+
+
+172.17.0.1
+
+
+

@@ -1,0 +1,33 @@
+docker run -it --entrypoint '' intechww-docker-local.jfrog.io/jfrog-maven-pip3:v5 bash
+
+echo "deb http://deb.debian.org/debian jessie main" > /etc/apt/sources.list
+echo "deb http://security.debian.org jessie/updates main" >> /etc/apt/sources.list
+
+
+sudo docker run -it --volume=/home/ahmad/Codes/BitBucketRepository/hosh:/hosh -v ~/.m2/:/root/.m2/ -v ~/.pip/:/root/.pip/  --memory=4g --memory-swap=4g --memory-swappiness=0 --entrypoint=/bin/bash -e PASSWORD=APASoqzCx5byHjXFDvcBKP7pfWt -e USERNAME=usman.khan intechww-docker-local.jfrog.io/jfrog-maven-pip3:v5
+
+docker pull postgres
+
+docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data  postgres
+
+docker run --rm   --name pg-docker -e POSTGRES_PASSWORD= -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data  postgres
+
+docker run --rm   --name pg-docker -e POSTGRES_PASSWORD= -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data  postgres
+
+
+sudo kill `sudo lsof -t -i:5432`
+
+
+sudo docker run -it --entrypoint '/bin/bash' -p 5000:5000 -v /home/ahmad/Codes/test_apps/:/app/test_apps aneequekhalid/flask_app
+
+
+
+curl -X POST relaxed_germain:5000/post -d '{"foo": "bar"}' -H 'Content-Type: application/json'
+curl -X POST relaxed_germain:5000/post -d '{"foo": "bsar"}' -H 'Content-Type: application/json'
+curl -X POST http://relaxed_germain:5000/post -d '{"foo": "bsar"}' -H 'Content-Type: application/json'
+
+
+
+docker run -d --rm --net rabbits --name rabbit-1 -p 8080:15672 -p 5672:5672 rabbitmq:3-management  
+
+docker run -d --restart=always --hostname travis-rabbitmq  --name travis-rabbitmq  rabbitmq:3.6.11-management-alpine

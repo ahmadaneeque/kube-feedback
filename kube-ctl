@@ -1,0 +1,22 @@
+kubectl get po | grep 
+kubectl config get-contexts
+kubectl config set-context <context_name>
+kubectl config use-context <context_name>
+kubectl logs <pod_name>
+kubectl get svc
+
+
+kubectl patch svc <my_service> --patch "$(cat patch.yaml)"
+
+kubectl expose deployment hello-world --type=LoadBalancer --name=my-service
+
+
+kubectl port-forward --namespace  <what-ever> svc/<servic-name> 808:15972
+
+for debugging
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm  --serviceaccount=internal-kubectl -n kube-feedback
+
+
+kubectl run -i --tty --image aneequekhalid/kube-feedback:latest internal-kubectl --restart=Never --rm  --serviceaccount=internal-kubectl -n kube-feedback
+
+
