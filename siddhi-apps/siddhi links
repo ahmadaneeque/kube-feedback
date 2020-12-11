@@ -1,0 +1,15 @@
+https://github.com/siddhi-io/docker-siddhi/releases
+
+
+https://siddhi.io/en/v5.1/docs/extensions/
+
+https://github.com/siddhi-io/docker-siddhi/tree/master/docker-files/siddhi-runner/alpine
+
+https://siddhi.io/en/v5.1/docs/guides/realtime-movie-recommendation/guide/#training-tensorflow-model-for-sentiment-analysis
+
+
+
+sudo docker run -it -p 8006:8006 -v /home/ahmad/Codes/siddhi-apps:/apps siddhiio/siddhi-runner-alpine:5.1.0-beta -Dapps=/apps/io-http.siddhi
+
+
+curl -X POST http://localhost:8006/feedbackInputStream --header "Content-Type:application/json" -d '{"event":{"sepal_length":2,"sepal_width":2,"petal_length":2,"petal_width":2}}'
