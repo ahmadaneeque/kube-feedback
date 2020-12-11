@@ -1,0 +1,12 @@
+@App:name('SweetFactory__1')
+@App:description('Description of the plan')
+
+define stream SweetProductionStream (name string, amount long);
+@sink(type = 'log', 
+	@map(type = 'passThrough'))
+define stream TotalProductionStream (TotalProduction long);
+
+@info(name = 'SweetTotalQuery')
+from SweetProductionStream 
+select count() as TotalProduction 
+insert into TotalProductionStream;

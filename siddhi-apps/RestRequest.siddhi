@@ -1,0 +1,37 @@
+
+@App:name("RestRequest")
+@App:description("send request to other server out side")
+
+@Source(type = 'http', receiver.url = 'http://0.0.0.0:8006/feedbackInputStream',
+ basic.auth.enabled = 'false', @map(type = 'json'))
+@sink(type='log') 
+define stream FeedbackInputStream ( req_id int, sepal_length float, sepal_width float, petal_length float, petal_width float);
+
+
+@sink(type='http-call', publisher.url='http://172.17.0.1:5000/predict', method='POST', sink.id='loan-validation',
+    @map(type='json'))
+define stream externalServer(req_id int, sepal_length float, sepal_width float, petal_length float, petal_width float);
+
+
+@source(type='http-call-response', sink.id='loan-validation', http.status.code='2\d+',
+       @map(type='json', 
+           @attributes(req_id='req_id',sepal_length='sp_length', sepal_width='sp_width', petal_length='pl_length', petal_width='pl_width')
+           ))
+define stream SuccessLoanRequestStream(req_id int, sepal_length float, sepal_width float, petal_length float, petal_width float);
+
+
+@sink(type='log') 
+define stream ServerResponseStream(req_id int, sepal_length float, sepal_width float, petal_length float, petal_width float);
+ 
+@info(name = 'making-call') 
+From FeedbackInputStream
+select  req_id, sepal_length, sepal_width, petal_length, petal_width
+insert into externalServer;    
+
+
+@info(name = 'successful-message-generator')
+from SuccessLoanRequestStream
+select req_id, sepal_length, sepal_width, petal_length, petal_width
+insert into ServerResponseStream;
+
+

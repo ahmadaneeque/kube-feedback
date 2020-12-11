@@ -1,0 +1,53 @@
+@App:name('io-http')
+@App:description('forwards the given guery to other server for processing')
+
+
+@sink(type='http-call', publisher.url='http://localhost:5000/post', method='POST', sink.id='loan-validation',
+    @map(type='json'))
+define stream LoanValidationStream (sepal_length float);
+
+@source(type='http-call-response', sink.id='loan-validation', http.status.code='2\d+',
+    @map(type='json', @attributes(customerName='trp:name',
+        clientId='trp:clientId', loanAmount='trp:amount',
+        interestRate='validation-response.rate',
+        totalYears='validation-response.years-approved')))
+define stream SuccessLoanRequestStream(clientId long,
+           customerName string, loanAmount double,
+           interestRate double, totalYears int);
+
+@source(type='http-call-response', sink.id='loan-validation',
+    http.status.code='400',
+    @map(type='json', @attributes(customerName='trp:name',
+        clientId='trp:clientId',
+        failureReason='validation-response.reason')))
+define stream FailureLoanRequestStream(clientId long,
+                customerName string, failureReason string);
+
+
+
+@Source(type = 'http', receiver.url = 'http://0.0.0.0:8006/feedbackInputStream',
+ basic.auth.enabled = 'false', @map(type = 'json'))
+define stream LoanRequestStream (sepal_length float, sepal_width float, petal_length float, petal_width float);
+
+
+@sink(type='log') 
+define stream LoanResponseStream(clientId long, customerName string, message string);
+
+@info(name = 'attribute-projection')
+from LoanRequestStream
+select sepal_length
+insert into LoanValidationStream;
+
+@info(name = 'successful-message-generator')
+from SuccessLoanRequestStream
+select clientId, customerName,
+    "Loan Request is accepted for processing" as message
+insert into LoanResponseStream;
+
+@info(name = 'failure-message-generator')
+from FailureLoanRequestStream
+select clientId, customerName,
+        str:concat("Loan Request is rejected due to ",
+            failureReason) as message
+insert into LoanResponseStream;
+

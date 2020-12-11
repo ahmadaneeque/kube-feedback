@@ -1,0 +1,16 @@
+@App:name("KerasModelExecution2")
+
+
+@App:description("Keras model converted to PMML model")
+
+@Source(type = 'http', receiver.url = 'http://0.0.0.0:8006/feedbackInputStream',
+ basic.auth.enabled = 'false', @map(type = 'json'))
+define stream FeedbackInputStream (sepal_length float, sepal_width float, petal_length float, petal_width float);
+
+@sink(type='log', prefix='LOGGER')
+define stream OutputStream(probability_setosa string, probability_virginica string, probability_versicolor string);
+ 
+@info(name = 'query1') 
+From FeedbackInputStream#pmml:predict('${PMML_MODEL_PATH}',sepal_length, sepal_width, petal_length, petal_width)  
+select probability_setosa, probability_virginica, probability_versicolor
+insert into  OutputStream;    
