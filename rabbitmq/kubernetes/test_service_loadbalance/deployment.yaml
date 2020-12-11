@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-call
+  labels:
+    app: service-call
+spec:
+  selector:
+    matchLabels:
+      app: service-call
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-call
+    spec:
+      containers:
+      - name: service-call
+        image: aneequekhalid/my-model:v3.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+

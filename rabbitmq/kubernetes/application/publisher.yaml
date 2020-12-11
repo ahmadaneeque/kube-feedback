@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rabbitmq-credential
+type: Opaque
+data:
+  RABBIT_USERNAME: Z3Vlc3Q=
+  RABBIT_PASSWORD: Z3Vlc3Q=
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-test
+  labels:
+    app: rabbitmq-test
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq-test
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-test
+    spec:
+      containers:
+      - name: rabbitmq-test
+        image: aneequekhalid/my-model:rabbitconsumer2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: RABBIT_NAMESPACE
+          valueFrom:
+            configMapKeyRef:
+              name: rabbit-configuration
+              key: namespace
+        - name: RABBIT_SVC
+          valueFrom:
+            configMapKeyRef:
+              name: rabbit-configuration
+              key: service
+        - name: DOMAIN	
+          valueFrom:
+            configMapKeyRef:
+              name: rabbit-configuration
+              key: domain
+        - name: RABBIT_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: rabbit-configuration
+              key: port
+        - name: RABBIT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-credential
+              key: RABBIT_USERNAME
+        - name: RABBIT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-credential
+              key: RABBIT_PASSWORD
