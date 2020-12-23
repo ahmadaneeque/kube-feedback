@@ -11,8 +11,7 @@ spec:
     - ReadWriteOnce
   azureFile:
     secretName: azure-secret
-    secretNamespace: jenkins
-    shareName: k8stest
+    shareName: aztest
     readOnly: false
   claimRef:
     name: jenkins-claim
