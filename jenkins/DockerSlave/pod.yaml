@@ -5,4 +5,4 @@ metadata:
 spec:
   containers:
     - name: my-containor
-      image: aneequekhalid/jenkins-agent
+      image: aimvector/jenkins-slave
