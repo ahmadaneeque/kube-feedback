@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: train-script
+  labels:
+    app: train-script
+spec:
+  selector:
+    matchLabels:
+      app: train-script
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: train-script
+    spec:
+      containers:
+      - name: train-script
+        image: aneequekhalid/train-model:v4
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+          - mountPath: /models
+            name: test-volume
+      restartPolicy: Always
+      securityContext:
+        runAsUser: 0
+      terminationGracePeriodSeconds: 30
+      volumes:
+       - name: test-volume
+         persistentVolumeClaim:
+           claimName: ml-pvc
