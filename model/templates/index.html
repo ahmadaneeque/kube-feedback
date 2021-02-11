@@ -1,0 +1,19 @@
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="login">
+<h1>training anomaly model</h1>
+<!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('operation')}}" method="post">
+        <input name="start time" required="required" type="date" placeholder="2019-07-01" />
+        <input name="end time" required="required" type="date" placeholder='3-2-2019' />
+        <p> df.time.min() = '2019-07-01 00:00:04'</p>
+        <p> df.time.max() = '2019-10-15 23:59:58'</p>
+<!--        <img src="/plot" alt="my plot">-->
+        <input type="submit" name="train" value="train"/>
+        <input type="submit" name="score" value="score"/>
+        <input type="submit" name="plot" value="plot"/>
+
+</form>
+    <br>{{ prediction_text }}</br>
+ <img src="{{ figure_to_plot }}" alt="User Image">
+     </div>

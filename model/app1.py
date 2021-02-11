@@ -1,0 +1,82 @@
+
+import io
+import os
+import base64
+import random
+from flask import Response
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+# Import all the packages you need for your model below
+from flask import Flask, redirect, url_for, render_template, request, flash
+import pandas as pd
+
+import numpy as np
+import keras
+from keras import layers
+import numpy as np
+from sklearn.externals import joblib
+
+model = joblib.load('model/latest.pkl')
+
+model._make_predict_function()
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+
+@app.route('/operation', methods=['POST'])
+def operation():
+    # int_features = [float(x) for x in request.form.values()]
+    constant = [x for x in request.form.values()]
+    file_path = '../../Data_set/packages/anomaly_clean_data_packages.csv'
+    # df = pd.read_csv(file_path, parse_dates=[0], low_memory=False)
+    iter_csv = pd.read_csv(file_path, parse_dates=[0], iterator=True, chunksize=100000, index_col=0)
+    df = pd.concat([chunk.loc[constant[0]: constant[1]] for chunk in iter_csv])
+    df = df[df.columns.difference(['Grade Code', 'time'])]
+
+    if 'plot' in request.form:
+        fig = Figure(figsize=[20, 30])
+        ax = fig.subplots()
+        df.plot(ax=ax, subplots=True)
+        buf = io.BytesIO()
+        fig.savefig(buf, format="png")
+        fig.close()
+        # Embed the result in the html output.
+        data = base64.b64encode(buf.getbuffer()).decode("ascii")
+        del df
+        return render_template('index.html', figure_to_plot=f'data:image/png;base64,{data}',
+                               prediction_text=constant)
+
+    elif 'score' in request.form:
+        result = pd.DataFrame(model.predict(df), columns=df.columns, index=df.index)
+
+        fig, axs = plt.subplots(nrows=len(df.columns), ncols=1, sharex=True, figsize=[20, 30])
+        for index, name in enumerate(df.columns):
+            axs[index].plot(df[name], label=name)
+            axs[index].plot(result[name], label=f'predicted {name}')
+            axs[index].legend(loc='upper right')
+
+        buf = io.BytesIO()
+        fig.savefig(buf, format="png")
+        fig.close()
+        # Embed the result in the html output.
+        data = base64.b64encode(buf.getbuffer()).decode("ascii")
+        del df
+        return render_template('index.html', figure_to_plot=f'data:image/png;base64, {data}',
+                               prediction_text=constant)
+
+    elif 'train' in request.form:
+        model.fit(df, df)
+        del df
+        return render_template('index.html')
+        #                        figure_to_plot='<img src="/plot" alt="my plot">' )
+       # return render_template('index.html', prediction_text='The Flower is {}'.format(str(request.form)))
+    # return render_template('index.html', prediction_text='The Flower is {}'.format(str(request.form)))
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
