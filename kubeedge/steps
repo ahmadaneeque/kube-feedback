@@ -1,0 +1,44 @@
+
+ps -p 1 -o comm=
+
+https://dev.to/s1ntaxe770r/how-to-setup-ssh-within-a-docker-container-i5i
+
+https://medium.com/@gaponcic.d/getting-started-with-kubeedge-on-virtual-machines-8cfa2b314b11
+
+https://gokulchandrapr.medium.com/kubeedge-extending-kubernetes-to-edge-dcfedd91f5f9
+
+docker build edgenode .
+
+docker run --network=kind -v /var/run/docker.sock:/var/run/docker.sock -ti edgenode
+
+docker run --privileged -d --network=kind -v /var/run/docker.sock:/var/run/docker.sock --name=edgenode edgenode
+
+
+sudo keadm init --kube-config=/home/ahmad/.kube/config --advertise-address=20.204.211.199
+
+TOKEN=$(sudo keadm gettoken --kube-config=/home/ahmad/.kube/config)
+
+copy to edge
+
+# keadm init --advertise-address="THE-EXPOSED-IP"(only work since 1.3 release)
+
+ssh test@172.18.0.2
+
+cat TOKEN > token.txt
+
+TOKEN=$(cat token.txt)
+
+
+sudo keadm join --cloudcore-ipport=20.204.211.199:10000 --token=$TOKEN
+
+
+
+docker exec edgenode service ssh start
+
+docker exec edgenode 
+
+keadm join --cloudcore-ipport=20.204.211.199:10000 --token=$TOKEN
+
+docker kill edgenode
+
+
