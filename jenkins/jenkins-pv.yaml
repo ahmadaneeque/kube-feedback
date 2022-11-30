@@ -3,40 +3,37 @@ kind: PersistentVolume
 metadata:
   name: jenkins
   labels:
-    usage: jenkins-storage
+    type: local
 spec:
+  storageClassName: manual
   capacity:
-    storage: 5Gi
+    storage: 4Gi
   accessModes:
     - ReadWriteOnce
-  azureFile:
-    secretName: azure-secret
-    shareName: aztest
-    readOnly: false
-  claimRef:
-    name: jenkins-claim
-    kind: PersistenVolumeClaim
-    namespace: jenkins
-  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/mnt/data"
 
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: jenkins
-#   #annotations: 
-#    #pv.beta.kubernetes.io/gid: "1000"
-# spec:
-#   capacity:
-#     storage: 5Gi
-#   accessModes:
-#   - ReadWriteOnce
-#   azureFile:
-#     secretName: storage-connection
-#     secretNamespace: jenkins
-#     shareName: aksshare
-#     readOnly: false
-#   claimRef:
-#     name: jenkins-pvc
-#     kind: PersistenVolumeClaim
-#     namespace: jenkins
-#   persistentVolumeReclaimPolicy: Retain
+
+
+
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: jenkins
+#  labels:
+#    usage: jenkins-storage
+#spec:
+#  capacity:
+#    storage: 5Gi
+#  accessModes:
+#    - ReadWriteOnce
+#  azureFile:
+#    secretName: azure-secret
+#    shareName: akztest
+#    readOnly: false
+#  claimRef:
+#    name: jenkins-claim
+#    kind: PersistenVolumeClaim
+#    namespace: jenkins
+#  persistentVolumeReclaimPolicy: Retain
+

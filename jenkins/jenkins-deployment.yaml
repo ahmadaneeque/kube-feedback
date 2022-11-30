@@ -41,7 +41,7 @@ spec:
       terminationGracePeriodSeconds: 30
       volumes:
       - name: jenkins
-        persistentVolumeClaim:
-          claimName: jenkins-claim
-
-
+        hostPath:
+         path: /ml-data
+#        persistentVolumeClaim:
+#          claimName: jenkins-claim
