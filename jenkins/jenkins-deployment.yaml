@@ -19,7 +19,7 @@ spec:
       labels:
         app: jenkins
     spec:
-      serviceAccountName: jenkins
+      serviceAccountName: mlflow
       containers:
       - name: jenkins
         image: jenkins/jenkins:lts
@@ -32,16 +32,23 @@ spec:
           protocol: TCP
         - containerPort: 50000
           protocol: TCP
-        volumeMounts:
-        - mountPath: /var/jenkins_home
-          name: jenkins
+#        volumeMounts:
+#        - mountPath: /var/jenkins_home
+#          name: jenkins
       restartPolicy: Always
       securityContext:
         runAsUser: 0
       terminationGracePeriodSeconds: 30
+<<<<<<< Updated upstream
       volumes:
       - name: jenkins
         hostPath:
          path: /ml-data
+=======
+#      volumes:
+#      - name: jenkins
+#        hostPath:
+#         path: /ml-data
+>>>>>>> Stashed changes
 #        persistentVolumeClaim:
 #          claimName: jenkins-claim

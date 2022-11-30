@@ -1,0 +1,59 @@
+
+az aks nodepool list -g SSAICloudMigration --cluster-name ahmadpoc
+
+az aks nodepool add \
+    --resource-group myResourceGroup \
+    --cluster-name myAKSCluster \
+    --name user \
+    --node-count 0 \
+    --node-taints CriticalAddonsOnly=true:NoSchedule \
+    --mode 
+
+
+az aks update \
+  --resource-group myResourceGroup \
+  --name myAKSCluster \
+  --enable-cluster-autoscaler \
+  --min-count 0 \
+  --max-count 1
+
+
+az aks update \
+  --resource-group myResourceGroup \
+  --name myAKSCluster \
+  --update-cluster-autoscaler \
+  --min-count 0\
+  --max-count 1
+
+az aks nodepool update \
+  --resource-group myResourceGroup \
+  --cluster-name myAKSCluster \
+  --name mynodepool \
+  --enable-cluster-autoscaler \
+  --min-count 1 \
+  --max-count 3
+
+
+az aks get-versions --location <cluster-location> --output table
+az aks get-versions --location eastus --output table
+
+need to upgrade kubernetes version node version
+
+az aks get-upgrades --resource-group SSAICloudMigration  --name ahmadpoc
+
+az aks nodepool upgrade --cluster-name ahmadpoc --name nodepool1 --resource-group SSAICloudMigration --kubernetes-version "1.18.17" 
+az aks nodepool upgrade --cluster-name ahmadpoc --kubernetes-version 1.18.17 --name nodepool1 --resource-group SSAICloudMigration
+
+az aks nodepool upgrade --cluster-name ahmadpoc --name nodepool1 --node-image-only --resource-group SSAICloudMigration
+
+az aks nodepool add \
+    --resource-group SSAICloudMigration \
+    --cluster-name ahmadpoc \
+    --name usernode \
+    --labels nodeSelectorTerms=usernode \
+    --node-count 1 \
+    --node-taints sku=gpu:NoSchedule \
+    --enable-cluster-autoscaler \
+    --min-count 0\
+    --max-count 1
+ 

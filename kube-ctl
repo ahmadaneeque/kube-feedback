@@ -10,13 +10,18 @@ kubectl patch svc <my_service> --patch "$(cat patch.yaml)"
 
 kubectl expose deployment hello-world --type=LoadBalancer --name=my-service
 
+kubectl get pods --all-namespaces
+kubectl get pods --all-namespaces -o wide
 
 kubectl port-forward --namespace  <what-ever> svc/<servic-name> 808:15972
 
 for debugging
 kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm  --serviceaccount=internal-kubectl -n kube-feedback
 
+nslookup <service-name>.<namespace>
 
 kubectl run -i --tty --image aneequekhalid/kube-feedback:latest internal-kubectl --restart=Never --rm  --serviceaccount=internal-kubectl -n kube-feedback
+
+kubectl run -i --tty --image python:slim-buster dns-test --restart=Never --rm 
 
 

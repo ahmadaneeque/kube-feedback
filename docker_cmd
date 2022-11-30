@@ -1,3 +1,6 @@
+remove all images
+docker rmi -f $(docker images -aq)
+
 docker run -it --entrypoint '' intechww-docker-local.jfrog.io/jfrog-maven-pip3:v5 bash
 
 echo "deb http://deb.debian.org/debian jessie main" > /etc/apt/sources.list
@@ -31,3 +34,25 @@ curl -X POST http://relaxed_germain:5000/post -d '{"foo": "bsar"}' -H 'Content-T
 docker run -d --rm --net rabbits --name rabbit-1 -p 8080:15672 -p 5672:5672 rabbitmq:3-management  
 
 docker run -d --restart=always --hostname travis-rabbitmq  --name travis-rabbitmq  rabbitmq:3.6.11-management-alpine
+
+
+
+##### time attach volume pass enviroment variables
+
+time docker run --rm --name=test alpine ping -c 10 8.8.8.8
+
+
+docker run --name=test -m=2g --cpus="1.0" -e DATAPATH='/model/anomaly_clean_data_packages.csv' -e TIMERANGE="['2019-07-1','2019-07-30']" -v $HOME/Codes/Data_set/packages/:/model  train_tf3.7:v1 
+
+docker run --name=test -m=3.0g --cpus="2.0" -e DATAPATH='/model/anomaly_clean_data_packages.csv' -e TIMERANGE="['2019-10-1','2019-10-30']" -v $HOME/Codes/Data_set/packages/:/model  train_tf3.7:v1 
+
+
+docker run --rm --name=retrain -m=2.0g --cpus="2.0" -p 8010:5000 -e DATAPATH='/model/anomaly_clean_data_packages.csv' -e MODELPATH="/model" -v $HOME/Codes/Data_set/packages/:/model  retrain-tf:latest 
+
+docker run --rm --name=score -m=1.0g --cpus="0.5" -p 8020:5000  -e MODELPATH="/model" -v $HOME/Codes/Data_set/packages/:/model  scoring-tf:latest 
+
+
+docker run --rm --name=retrain -m=1.0g --cpus="0.5" -p 3031:3031  -e MODELPATH="/model" -e DATAPATH="/data" -e USERNAME='postgres' -e PASSWORD='somePassword' -e DBHOST='localhost' -e DBNAME='postgres' -e PORT='5432' -e DIALECT='postgresql' -v $HOME/Codes/Data_set/:/data -v $HOME/Codes/model:/model retrain-tf:latest 
+
+
+

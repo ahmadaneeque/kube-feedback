@@ -14,12 +14,6 @@ curl -v -X POST -d \
 
 
 
-
-
-
-
-
-
 https://github.com/siddhi-io/docker-siddhi/releases
 
 
@@ -29,6 +23,7 @@ https://github.com/siddhi-io/docker-siddhi/tree/master/docker-files/siddhi-runne
 docker run -it -p 8006:8006 -v /home/ahmad/Codes/siddhi-apps:/apps siddhi-runner-alpine:5.1.0-beta -Dapps=/apps/RestRequest.siddhi
 
 curl -X POST http://localhost:8006/feedbackInputStream --header "Content-Type:application/json" -d '{"event":{"sepal_length":2,"sepal_width":2,"petal_length":2,"petal_width":2}}'
+
 curl -X POST http://0.0.0.0:5000/test 
 
 
@@ -50,14 +45,24 @@ define stream StockStream (symbol string, price float, volume long);
 sudo docker run -it --entrypoint '/bin/bash' -p 5000:5000 -v /home/ahmad/Codes/test_apps/:/app/test_apps aneequekhalid/flask_app
 
 
-
 sudo docker run -it -p 8006:8006 -v /home/ahmad/Codes/siddhi-apps:/apps --link relaxed_germain siddhi-runner-alpine:5.1.0-beta -Dapps=/apps/RestRequest.siddhi
 curl -X POST http://localhost:8006/feedbackInputStream --header "Content-Type:application/json" -d '{"event":{"sepal_length":2,"sepal_width":2,"petal_length":2,"petal_width":2}}'
+
+curl -X POST http://localhost:5000/predict --header "Content-Type:application/json" -d '{"event":{"sp":2,"sw":2,"pl":2,"pw":2}}'
+
 curl -X POST 172.17.0.1:5000/post -d '{"foo": "bar"}' -H 'Content-Type: application/json
 
+curl -X POST localhost:5000 -d '{"foo": "bar"}' -H 'Content-Type: application/json
+
+ 
 
 
-172.17.0.1
+curl -X localhost:3031/anomaly?metaData='{"filePath": "anomaly_clean_data_packages.csv", "timerange": ["01/08/2019", "30/08/2019"]}'
+
+curl -X POST localhost:3031/retrain/anomaly --header "Content-Type:application/json" -d '{"sl": {"file_path": "anomaly_clean_data_packages.csv", "time_range": ["01/08/2019", "30/08/2019"]}}'
+
+curl -X POST localhost:3031/retrain/anomaly --header "Content-Type:application/json" -d ' {"filePath": "anomaly_clean_data_packages.csv", "timeRange": ["01/08/2019", "30/08/2019"]}'
 
 
+# echo -n "cookie-value" | base64
 

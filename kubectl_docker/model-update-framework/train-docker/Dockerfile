@@ -1,10 +1,10 @@
-FROM aneequekhalid/python3.7-ml:latest
+FROM aneequekhalid/python3.7-tf:latest
 
-COPY main.py /app/main.py
+COPY training_model.py /app/training_model.py
 
 WORKDIR /app
 RUN ls -l
 
 ENTRYPOINT ["python"]
 
-CMD ["main.py"]
+CMD ["training_model.py"]

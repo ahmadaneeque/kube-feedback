@@ -1,0 +1,105 @@
+2021-03-10 10:48:22,937 ->Started
+2021-03-10 10:48:22,944 ->{"name": "anomaly_48fd8459f38d3692ba1f", "status": "in progress", "operation": "Data loading"}
+2021-03-10 10:48:49,874 ->Exception on /status/anomaly_4234bbffb4d4c1b8dc11 [GET]
+Traceback (most recent call last):
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app-thread.py", line 43, in spool_status
+    history = custom_log.read_logs(handle)
+  File "./mlog.py", line 34, in read_logs
+    val = json.loads(line)
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/json/__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2021-03-10 10:49:02,424 ->{"name": "anomaly_48fd8459f38d3692ba1f", "status": "in progress", "operation": "Data loaded"}
+2021-03-10 10:49:02,424 ->{"name": "anomaly_48fd8459f38d3692ba1f", "status": "in progress", "operation": "Model loading"}
+2021-03-10 10:49:03,167 ->From /home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/tensorflow/python/framework/op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2021-03-10 10:49:03,347 ->From /home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/tensorflow/python/ops/math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2021-03-10 10:49:03,764 ->{"name": "anomaly_48fd8459f38d3692ba1f", "status": "in progress", "operation": "Model loaded"}
+2021-03-10 10:49:03,764 ->{"name": "anomaly_48fd8459f38d3692ba1f", "status": "in progress", "operation": "Model training"}
+2021-03-10 10:51:52,123 ->{"name": "anomaly_48fd8459f38d3692ba1f", "status": "in progress", "operation": "Model trained"}
+2021-03-10 10:51:52,291 ->{"name": "anomaly_48fd8459f38d3692ba1f", "status": "completed", "operation": "Model saved", "location": "../../../../../Data_set/packages/anomaly_48fd8459f38d3692ba1f"}
+2021-03-10 11:32:43,124 ->Started
+2021-03-10 11:33:00,239 ->{"name": "anomaly_4e9e94095d6e6a517dfa", "status": "in progress", "operation": "Data loading"}
+2021-03-10 11:33:18,038 ->Exception on /status/anomaly_4e9e94095d6e6a517dfa [GET]
+Traceback (most recent call last):
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app-thread.py", line 43, in spool_status
+    history = custom_log.read_logs(handle)
+  File "./mlog.py", line 34, in read_logs
+    val = json.loads(line)
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/json/__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2021-03-10 11:33:39,874 ->{"name": "anomaly_4e9e94095d6e6a517dfa", "status": "in progress", "operation": "Data loaded"}
+2021-03-10 11:33:39,874 ->{"name": "anomaly_4e9e94095d6e6a517dfa", "status": "in progress", "operation": "Model loading"}
+2021-03-10 11:33:40,652 ->From /home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/tensorflow/python/framework/op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2021-03-10 11:33:40,835 ->From /home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/tensorflow/python/ops/math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2021-03-10 11:33:41,262 ->{"name": "anomaly_4e9e94095d6e6a517dfa", "status": "in progress", "operation": "Model loaded"}
+2021-03-10 11:33:41,262 ->{"name": "anomaly_4e9e94095d6e6a517dfa", "status": "in progress", "operation": "Model training"}
+2021-03-10 11:34:34,045 ->Exception on /status/anomaly_4e9e94095d6e6a517dfa [GET]
+Traceback (most recent call last):
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "app-thread.py", line 43, in spool_status
+    history = custom_log.read_logs(handle)
+  File "./mlog.py", line 34, in read_logs
+    val = json.loads(line)
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/json/__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/home/ahmad/anaconda3/envs/modelupdate/lib/python3.7/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2021-03-10 11:36:15,825 ->{"name": "anomaly_4e9e94095d6e6a517dfa", "status": "in progress", "operation": "Model trained"}
+2021-03-10 11:36:15,884 ->{"name": "anomaly_4e9e94095d6e6a517dfa", "status": "completed", "operation": "Model saved", "location": "../../../../../Data_set/packages/anomaly_4e9e94095d6e6a517dfa"}
+2021-03-10 14:00:36,985 ->Started
+2021-03-12 15:01:15,237 ->Started

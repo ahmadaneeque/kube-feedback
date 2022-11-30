@@ -49,5 +49,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: jenkins
-  namespace: jenkins
 

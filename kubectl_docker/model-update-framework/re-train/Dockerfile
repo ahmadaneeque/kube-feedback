@@ -1,11 +1,9 @@
 FROM aneequekhalid/python3.7-tf:latest
 
-COPY . /app
+COPY app.py /app/app.py
 
 WORKDIR /app
 
-EXPOSE 5000
-
 ENTRYPOINT ["python"]
 
-CMD ["scoring.py"]
+CMD ["app.py"]
