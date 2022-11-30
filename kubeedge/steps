@@ -41,4 +41,5 @@ keadm join --cloudcore-ipport=20.204.211.199:10000 --token=$TOKEN
 
 docker kill edgenode
 
+keadm join --cloudcore-ipport=4.234.37.81:10000 --token=2d5e5e6c5cc5250907bbd2857033040a614563b300a0db5706e39a161eb2dc8b.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Njk4OTE5Mjd9.Gss8ZQLYacc6sHZ5d9zUujlJvdo2Y509fRyiXU1zIVU
 
