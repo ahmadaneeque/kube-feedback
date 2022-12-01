@@ -16,6 +16,9 @@ docker run --privileged -d --network=kind -v /var/run/docker.sock:/var/run/docke
 
 sudo keadm init --kube-config=/home/ahmad/.kube/config --advertise-address=20.204.211.199
 
+
+
+
 TOKEN=$(sudo keadm gettoken --kube-config=/home/ahmad/.kube/config)
 
 copy to edge
@@ -41,5 +44,22 @@ keadm join --cloudcore-ipport=20.204.211.199:10000 --token=$TOKEN
 
 docker kill edgenode
 
-keadm join --cloudcore-ipport=4.234.37.81:10000 --token=2d5e5e6c5cc5250907bbd2857033040a614563b300a0db5706e39a161eb2dc8b.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Njk4OTE5Mjd9.Gss8ZQLYacc6sHZ5d9zUujlJvdo2Y509fRyiXU1zIVU
+
+https://kubeedge-dns-dab40107.hcp.uksouth.azmk8s.io:443
+
+
+
+keadm join --cloudcore-ipport=20.49.242.8:10000 --token=43252c724d5428b1e20cff6a44c3d6f69140f61d36e2b8a38c9e42d1e14d1f14.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Njk5NzIxMTJ9.tzE-umKO8HZQsEsoD3iNzQ8QBBeKjbwcb9zHdSWXh9I
+
+
+kubectl create ns kubeedge
+
+helm upgrade --install cloudcore ./cloudcore --namespace kubeedge --create-namespace -f ./cloudcore/values.yaml --set cloudCore.modules.cloudHub.advertiseAddress[0]=20.49.242.8
+sudo keadm init --kube-config=/home/ahmad/.kube/config --advertise-address=20.49.242.8
+
+sudo keadm gettoken --kube-config=/home/ahmad/.kube/config
+
+
+
+
 
