@@ -49,17 +49,38 @@ https://kubeedge-dns-dab40107.hcp.uksouth.azmk8s.io:443
 
 
 
-keadm join --cloudcore-ipport=20.49.242.8:10000 --token=43252c724d5428b1e20cff6a44c3d6f69140f61d36e2b8a38c9e42d1e14d1f14.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Njk5NzIxMTJ9.tzE-umKO8HZQsEsoD3iNzQ8QBBeKjbwcb9zHdSWXh9I
-
-
 kubectl create ns kubeedge
 
-helm upgrade --install cloudcore ./cloudcore --namespace kubeedge --create-namespace -f ./cloudcore/values.yaml --set cloudCore.modules.cloudHub.advertiseAddress[0]=20.49.242.8
+
+helm upgrade --install cloudcore . --namespace kubeedge --create-namespace 
+
 sudo keadm init --kube-config=/home/ahmad/.kube/config --advertise-address=20.49.242.8
+
+helm uninstall cloudcore -n kubeedge
+
+kubectl get secret -n kubeedge tokensecret -o=jsonpath='{.data.tokendata}' | base64 -d
 
 sudo keadm gettoken --kube-config=/home/ahmad/.kube/config
 
 
+sudo keadm join --cloudcore-ipport=20.26.105.111:10000 --token=dc4c5297f8c073dd47e6a070c79b9d078b99a8c499fb2f06c849e35749eabff5.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzIxODQ1NTJ9.i7M1pnRkFx1rjbOGJ1-xOv2pR6svsHgjVHJ6x49zZF4 --kubeedge-version=v1.12.0
+
+
+
+kubectl get cm tunnelport -n kubeedge -o yaml
+
+10.224.0.6":10351
+
+
+iptables -t nat -A OUTPUT -p tcp --dport 10351 -j DNAT --to 10.224.0.6:10003
+
+iptables -t nat -A OUTPUT -p tcp --dport 10351 -j DNAT --to 10.224.0.6:10003
+
+
+kubectl -n kubeedge rollout restart deployment cloudcore
+
+
+systemctl restart edgecore.service
 
 
 
