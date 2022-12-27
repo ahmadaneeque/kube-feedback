@@ -71,9 +71,10 @@ kubectl get cm tunnelport -n kubeedge -o yaml
 
 10.224.0.6":10351
 
+tunnelportrecord.kubeedge.io: '{"ipTunnelPort":{"10.224.0.4":10352,"10.224.0.6":10351},"port":{"10351":true,"10352":true}}'
 
-iptables -t nat -A OUTPUT -p tcp --dport 10351 -j DNAT --to 10.224.0.6:10003
-
+iptables -t nat -A OUTPUT -p tcp --dport 10350 -j DNAT --to 20.26.105.111:10003
+iptables -t nat -A OUTPUT -p tcp --dport 10352 -j DNAT --to 10.224.0.4:10003
 iptables -t nat -A OUTPUT -p tcp --dport 10351 -j DNAT --to 10.224.0.6:10003
 
 
