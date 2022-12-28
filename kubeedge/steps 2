@@ -1,19 +1,9 @@
 
 
-
-docker run --rm kubeedge/installation-package:v1.12.0 cat /usr/local/bin/keadm > /usr/local/bin/keadm && chmod +x /usr/local/bin/keadm
-
-helm upgrade --install cloudcore . --namespace kubeedge --create-namespace
-
 curl -LO https://storage.googleapis.com/minikube/releases/v1.22.1/minikube-linux-amd64
 
 
-
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-
-
-
-
 
 
 sudo keadm init --kube-config=/home/cloud/.kube/config --advertise-address=20.0.194.174
@@ -22,7 +12,7 @@ sudo keadm gettoken --kube-config=/home/cloud/.kube/config
 
 
 
-sudo keadm join  --cloudcore-ipport=20.26.105.111:10000 --token=dc4c5297f8c073dd47e6a070c79b9d078b99a8c499fb2f06c849e35749eabff5.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzE2OTcyMTh9.3TU5UGfGBtvXvXc0NiSLcT7Gpshe3sbuslDLQ_-wJwo --kubeedge-version=v1.12.0
+sudo keadm join  --cloudcore-ipport=20.26.105.111:10000 --token=7d3eea87fde265b1ecb5c053b672d8180a4f4b8459a2e54da3a6f659c5b04c67.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzIzMTIzNDd9.roixmtbJfo3GSL4FxXJqymh_N5ad06LPx-1fLKsBkVg --kubeedge-version=v1.12.0
 
 
 
@@ -34,5 +24,6 @@ az network public-ip create \
 
 
 az aks show --resource-group SSAICloudMigration --name kubeedge --query nodeResourceGroup -o tsv
+
 
 
