@@ -63,7 +63,7 @@ kubectl get secret -n kubeedge tokensecret -o=jsonpath='{.data.tokendata}' | bas
 sudo keadm gettoken --kube-config=/home/ahmad/.kube/config
 
 
-sudo keadm join --cloudcore-ipport=20.26.105.111:10000 --token=dc4c5297f8c073dd47e6a070c79b9d078b99a8c499fb2f06c849e35749eabff5.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzIxODQ1NTJ9.i7M1pnRkFx1rjbOGJ1-xOv2pR6svsHgjVHJ6x49zZF4 --kubeedge-version=v1.12.0
+sudo keadm join --cloudcore-ipport=20.0.250.167:10000 --token=7473d67bca6ebe80eb6542b15f5ca5f230bc439cfbccd20195acddb1ee1e03a6.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzIyOTYwNDB9.4NkhImpAaCAwYKC8UtxRcrcb1R_kcG-iGeFwXOaLnzc --kubeedge-version=v1.12.0
 
 
 
