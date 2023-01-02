@@ -13,10 +13,18 @@ docker run --network=kind -v /var/run/docker.sock:/var/run/docker.sock -ti edgen
 
 docker run --privileged -d --network=kind -v /var/run/docker.sock:/var/run/docker.sock --name=edgenode edgenode
 
+docker run --rm kubeedge/installation-package:v1.12.0 cat /usr/local/bin/keadm > /usr/local/bin/keadm && chmod +x /usr/local/bin/keadm
 
-sudo keadm init --kube-config=/home/ahmad/.kube/config --advertise-address=20.204.211.199
+curl -LO https://storage.googleapis.com/minikube/releases/v1.22.1/minikube-linux-amd64
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 
+az aks show --resource-group SSAICloudMigration --name kubeedge --query nodeResourceGroup -o tsv
 
+az network public-ip create \
+    --resource-group SSAICloudMigration \
+    --name kube-cloud \
+    --sku Standard \
+    --allocation-method static
 
 
 TOKEN=$(sudo keadm gettoken --kube-config=/home/ahmad/.kube/config)
@@ -32,22 +40,19 @@ cat TOKEN > token.txt
 TOKEN=$(cat token.txt)
 
 
-sudo keadm join --cloudcore-ipport=20.204.211.199:10000 --token=$TOKEN
-
-
-
 docker exec edgenode service ssh start
 
 docker exec edgenode 
 
-keadm join --cloudcore-ipport=20.204.211.199:10000 --token=$TOKEN
 
 docker kill edgenode
 
+docker run --rm kubeedge/installation-package:v1.12.0 cat /usr/local/bin/keadm > /usr/local/bin/keadm && chmod +x /usr/local/bin/keadm
+sudo keadm init --kube-config=/home/cloud/.kube/config --advertise-address=20.0.194.174
 
-https://kubeedge-dns-dab40107.hcp.uksouth.azmk8s.io:443
+helm upgrade --install cloudcore ./cloudcore --namespace kubeedge --create-namespace -f ./cloudcore/values.yaml --set cloudCore.modules.cloudHub.advertiseAddress[0]=20.0.250.167
 
-
+helm upgrade --install cloudcore . --namespace kubeedge --create-namespace
 
 kubectl create ns kubeedge
 
@@ -59,19 +64,17 @@ sudo keadm init --kube-config=/home/ahmad/.kube/config --advertise-address=20.49
 helm uninstall cloudcore -n kubeedge
 
 kubectl get secret -n kubeedge tokensecret -o=jsonpath='{.data.tokendata}' | base64 -d
-
 sudo keadm gettoken --kube-config=/home/ahmad/.kube/config
 
 
-sudo keadm join --cloudcore-ipport=20.0.250.167:10000 --token=7473d67bca6ebe80eb6542b15f5ca5f230bc439cfbccd20195acddb1ee1e03a6.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzIyOTYwNDB9.4NkhImpAaCAwYKC8UtxRcrcb1R_kcG-iGeFwXOaLnzc --kubeedge-version=v1.12.0
+sudo keadm join --cloudcore-ipport=20.204.211.199:10000 --token=$TOKEN
+
+sudo keadm join  --cloudcore-ipport=20.26.105.111:10000 --token=07161ac8f909c8b4d09756568bd93eb5981b06defd61e3a9694cfea3eab711bc.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzI3Mjk1NjZ9.DYzvE5-ufdC-GibJPsAukRv8Q8W8ya1Oyj8UkuMSiy0 --kubeedge-version=v1.12.0
 
 
 
 kubectl get cm tunnelport -n kubeedge -o yaml
 
-10.224.0.6":10351
-
-tunnelportrecord.kubeedge.io: '{"ipTunnelPort":{"10.224.0.4":10352,"10.224.0.6":10351},"port":{"10351":true,"10352":true}}'
 
 iptables -t nat -A OUTPUT -p tcp --dport 10350 -j DNAT --to 20.26.105.111:10003
 iptables -t nat -A OUTPUT -p tcp --dport 10352 -j DNAT --to 10.224.0.4:10003
