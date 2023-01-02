@@ -69,7 +69,7 @@ sudo keadm gettoken --kube-config=/home/ahmad/.kube/config
 
 sudo keadm join --cloudcore-ipport=20.204.211.199:10000 --token=$TOKEN
 
-sudo keadm join  --cloudcore-ipport=20.26.105.111:10000 --token=07161ac8f909c8b4d09756568bd93eb5981b06defd61e3a9694cfea3eab711bc.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzI3Mjk1NjZ9.DYzvE5-ufdC-GibJPsAukRv8Q8W8ya1Oyj8UkuMSiy0 --kubeedge-version=v1.12.0
+sudo keadm join  --cloudcore-ipport=172.18.0.2:10000 --token=07161ac8f909c8b4d09756568bd93eb5981b06defd61e3a9694cfea3eab711bc.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzI3Mjk1NjZ9.DYzvE5-ufdC-GibJPsAukRv8Q8W8ya1Oyj8UkuMSiy0 --kubeedge-version=v1.12.0
 
 
 
