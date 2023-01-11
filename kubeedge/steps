@@ -1,12 +1,15 @@
 
+arch=$(uname -m); if [[ $arch != x86_64 ]]; then arch='arm64'; fi;  curl -LO https://kubeedge.pek3b.qingstor.com/bin/v1.12.0/$arch/keadm-v1.12.0-linux-$arch.tar.gz  && tar xvf keadm-v1.9.2-linux-$arch.tar.gz && chmod +x keadm && ./keadm join --kubeedge-version=1.9.2 --region=zh --cloudcore-ipport=51.142.99.211:10000 --quicport 10001 --certport 10002 --tunnelport 10004 --edgenode-name edgenode --edgenode-ip 192.168.1.1 --token 53e462649f9176ef3156c070871e4194af3153d478900ce45db2ed7c25225f9a.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzM0MjM4MzB9.cWbQ7iQxNUvt-KzY_EKgun69h-wmud1ZLMPDo_1_cXU --with-edge-taint
+
+
+
 ps -p 1 -o comm=
 
 az aks get-credentials --resource-group SSAICloudMigration --name kubeedge
 
-az vmss list-instance-public-ips -g MC_SSAICloudMigration_seldonDemo_westus2 -n aks-agentpool-22931508-vmss
+az vmss list-instance-public-ips -g MC_SSAICloudMigration_kubeedge_uksouth -n aks-nodepool1-18462672-vmss
 
-
-az aks create -g SSAICloudMigration -n kubeedge --kubernetes-version 1.21.14 --enable-node-public-ip
+az aks create -g SSAICloudMigration -n kubeedge --kubernetes-version 1.23.12 --enable-node-public-ip
 
 az aks nodepool add -g SSAICloudMigration --cluster-name kubeedge -n nodepool2 --enable-node-public-ip
 
@@ -44,6 +47,18 @@ copy to edge
 # keadm init --advertise-address="THE-EXPOSED-IP"(only work since 1.3 release)
 
 ssh test@172.18.0.2
+sudo apt update && sudo apt install docker.io -y
+
+sudo usermod -aG docker $USER
+sudo reboot
+
+
+curl -fsSL -O https://github.com/kubeedge/kubeedge/releases/download/v1.12.1/keadm-v1.12.1-linux-amd64.tar.gz
+tar xvf keadm-v1.12.1-linux-$arch.tar.gz
+chmod +x keadm
+
+keadm join --kubeedge-version=1.12.0 --cloudcore-ipport=51.132.134.247:10000 --token=5e04ab816e79c7b0a91da8668023608683af200adb4ce84459418b9e2405ecf2.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzM1MDUyMjJ9.CQFk1ILBNsYTkRzdBCvrtk_QwSfRlWItUMB0UXECkwA
+
 
 cat TOKEN > token.txt
 
@@ -80,15 +95,15 @@ sudo keadm gettoken --kube-config=/home/ahmad/.kube/config
 
 sudo keadm join --cloudcore-ipport=20.204.211.199:10000 --token=$TOKEN
 
-sudo keadm join  --cloudcore-ipport=51.142.99.211:10000 --token=aec80e98d8bc3505f0e21bef5f3a0c3f5c8fcca710ebb4ec1654c09e35a22abf.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzI5MTY0NjZ9.QYKWzECGK4RQGpq7VWulWbQvqyJgOeC2NmpHO4ZnRIk --kubeedge-version=v1.12.0
-
+keadm join  --cloudcore-ipport=172.18.0.2:10000 --token=07161ac8f909c8b4d09756568bd93eb5981b06defd61e3a9694cfea3eab711bc.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzM1MDA0NzF9.i3IlHYPkDtEdnBlIP5koZpdUO7q8dnbkYOKxKcK9MNc --kubeedge-version=v1.12.0
 
 
 kubectl get cm tunnelport -n kubeedge -o yaml
 
 
-iptables -t nat -A OUTPUT -p tcp --dport 10350 -j DNAT --to 172.18.0.2:10003
-iptables -t nat -A OUTPUT -p tcp --dport 10352 -j DNAT --to 10.224.0.4:10003
+iptables -t nat -A OUTPUT -p tcp --dport 10350 -j DNAT --to 51.142.99.211:10003
+iptables -t nat -A OUTPUT -p tcp --dport 10351 -j DNAT --to 10.224.0.5:10003
+
 iptables -t nat -A OUTPUT -p tcp --dport 10351 -j DNAT --to 10.224.0.6:10003
 
 
