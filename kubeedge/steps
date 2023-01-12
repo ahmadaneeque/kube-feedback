@@ -95,7 +95,7 @@ sudo keadm gettoken --kube-config=/home/ahmad/.kube/config
 
 sudo keadm join --cloudcore-ipport=20.204.211.199:10000 --token=$TOKEN
 
-keadm join  --cloudcore-ipport=172.18.0.2:10000 --token=07161ac8f909c8b4d09756568bd93eb5981b06defd61e3a9694cfea3eab711bc.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzM1MDA0NzF9.i3IlHYPkDtEdnBlIP5koZpdUO7q8dnbkYOKxKcK9MNc --kubeedge-version=v1.12.0
+keadm join  --cloudcore-ipport=172.18.0.2:10000 --token=7d5f65dad511142502bc5a1639bab97c3481baa1e9d5aa26c42717d8bbcd7ba5.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzM2MTEzODR9.8tF-IxsUsToBvR412q-96gd0uedjM1X0_BSm3sBnSLo --kubeedge-version=v1.12.0
 
 
 kubectl get cm tunnelport -n kubeedge -o yaml
